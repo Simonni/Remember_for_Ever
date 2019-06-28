@@ -2,32 +2,37 @@
 
 
 
-// let redirect = function(){
-//   document.location.href="./forms/page3.html"
-// }
 
-
-
-// var form = document.getElementsByClassName('form-signin');
-// form.onsubmit = function(e){
-//   e.preventDefault();
-//   var result = document.getElementById('result');
+ 
   
-// result.innerHTML= 'Welcome' + form.inputEmail.value;
-// console.log(result)
-//   this.reset();
-// }
+
+  $('#submit').on('click', function(){
+    let $inputEmail= $('#inputEmail')
+  let $inputPassword=$('#inputPassword')
+
+  let logIn = {
+    inputEmail: $inputEmail.val(),
+    inputPassword: $inputPassword.val(),
+  }
+  $.ajax({
+    type: 'POST',
+    // url: '/arn:aws:execute-api:us-east-1:385562546821:fkb0t1acw8/*/POST/userlogin',
+    url:'arn:aws:execute-api:us-east-1:385562546821:fkb0t1acw8/*/POST/userlogin',
+    data: logIn,
+    success: function(newUser){
+      users.innerHTML = newUser.$inputEmail
+    },
+
+    error: function(err){
+      alert(err)
+    }
+  })
+})
 
 
-var express = require('express');
-var app = express(); 
-var bodyParser= require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
-app.post('/user',urlencodedParser, function(req, res){
-  console.log(req.body)
-res.render('serverDB', {data:req.body});
-});
+
+
+
     
 
-    
