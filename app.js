@@ -19,36 +19,15 @@
 // }
 
 
+var express = require('express');
+var app = express(); 
+var bodyParser= require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
-
-
-
-
-        $(function(){
-          let $inputEmail= $('#inputEmail')
-          let $inputPassword=$('#inputPassword')
-
-          $('#submit').on('click', function(){
-
-          let logIn = {
-            inputEmail: $inputEmail.value(),
-            inputPassword: $inputPassword.value(),
-          }
-          $.ajax({
-            type: 'POST',
-            url: './forms/userPage.html',
-            data: logIn,
-            success: function(newUser){
-              $users.append('<li>userName: '+ newUser.inputEmail+ '</li>')
-              console.log(newUser.inputEmail)
-            },
-            error: function(){
-              alert(error)
-            }
-          })
-        })
-        })
-
+app.post('/user',urlencodedParser, function(req, res){
+  console.log(req.body)
+res.render('serverDB', {data:req.body});
+});
     
 
     
